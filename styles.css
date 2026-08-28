@@ -522,10 +522,13 @@ html:has(.lookbook) { scroll-padding-top: 3.6rem; }
   isolation: isolate;
   min-height: 0;
 }
-.look-mural svg {
+.look-mural img {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
 }
 .look-mural figcaption {
   position: absolute;
