@@ -171,28 +171,36 @@ body::after {
   to { clip-path: inset(0 0 0 0); }
 }
 
-.drip-run {
+.drip {
   position: absolute;
   left: var(--x);
-  top: 73%;
+  top: 76%;
   width: var(--w);
-  height: var(--h);
+  height: 0;
+  background: var(--c);
+  border-radius: 0 0 999px 999px;
   pointer-events: none;
-  color: var(--c);
-  overflow: visible;
-  filter: drop-shadow(0 1px 5px color-mix(in srgb, var(--c) 55%, transparent));
-  clip-path: inset(0 -70% 100% -70%);
-  animation: drip-grow 1.28s cubic-bezier(0.18, 0.76, 0.2, 1) var(--d) forwards;
+  transform-origin: top center;
+  animation: drip-down 1.15s cubic-bezier(0.15, 0.75, 0.2, 1) var(--d) forwards;
+  filter: drop-shadow(0 0 6px var(--c));
 }
-.drip-run svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+.drip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--w) * -0.55);
+  width: calc(var(--w) * 1.9);
+  height: calc(var(--w) * 2.15);
+  background: var(--c);
+  border-radius: 50%;
+  transform: translateX(-50%) scale(0);
+  animation: blob 0.32s ease-out calc(var(--d) + 0.82s) forwards;
 }
-@keyframes drip-grow {
-  0% { clip-path: inset(0 -70% 100% -70%); }
-  100% { clip-path: inset(0 -70% -22% -70%); }
+@keyframes drip-down {
+  to { height: var(--h); }
+}
+@keyframes blob {
+  to { transform: translateX(-50%) scale(1); }
 }
 
 .co {
@@ -317,14 +325,21 @@ body::after {
   100% { opacity: 0; transform: scale(1.35); }
 }
 
-/* Mouse spray: canvas overlay, dots fade on their own clock */
-#spray-layer {
+/* Cursor spray specks */
+.spray-dot {
   position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--dot, var(--mag)) 0%, transparent 70%);
   pointer-events: none;
-  z-index: 12;
+  z-index: 20;
+  animation: speck 0.55s ease-out forwards;
+  mix-blend-mode: screen;
+}
+@keyframes speck {
+  to { opacity: 0; transform: scale(2.2); }
 }
 
 /* Inner pages */
@@ -436,7 +451,6 @@ body::after {
 .swatch {
   position: sticky;
   top: 1rem;
-  overflow: hidden;
   height: min(70vh, 640px);
   background:
     linear-gradient(180deg,
@@ -453,12 +467,19 @@ body::after {
     8px 0 0 rgba(255,61,138,.35),
     inset -12px 0 24px rgba(0,0,0,.35);
 }
-.swatch-drips {
+.swatch::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  left: 32%;
+  top: 10%;
+  width: 7px;
+  height: 55%;
+  background: #e6ff3d;
+  border-radius: 0 0 8px 8px;
+  box-shadow:
+    18px 40px 0 0 #ff3d8a,
+    -12px 90px 0 2px #6dfff5,
+    8px 160px 0 0 #f3ead8;
 }
 
 /* Book */
@@ -589,11 +610,15 @@ textarea { min-height: 7rem; resize: vertical; }
     animation: none;
     clip-path: none;
   }
-  .drip-run {
+  .drip {
     animation: none;
-    clip-path: inset(0 -70% -22% -70%);
+    height: var(--h);
+  }
+  .drip::after {
+    animation: none;
+    transform: translateX(-50%) scale(1);
   }
   .burst, .spray-enter { display: none; }
   .btn:hover, .mural:hover { animation: none; }
-  #spray-layer { display: none; }
+  .spray-dot { display: none; }
 }
