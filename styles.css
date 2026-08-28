@@ -66,7 +66,7 @@ body::after {
   text-decoration: none;
 }
 
-.wrap, .site-header, .site-footer, .spray-enter {
+.wrap, .site-header, main, .site-footer, .spray-enter {
   position: relative;
   z-index: 2;
 }
@@ -126,7 +126,7 @@ body::after {
   display: grid;
   grid-template-columns: 1fr minmax(180px, 240px);
   gap: 1.5rem 2rem;
-  align-items: end;
+  align-items: start;
 }
 .stage-main { min-width: 0; }
 .eyebrow {
