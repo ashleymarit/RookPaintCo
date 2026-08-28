@@ -119,7 +119,7 @@ body::after {
 }
 .nav a:hover { color: var(--cream); }
 
-/* —— Drip display type —— */
+/* —— Stencil-painted display type —— */
 .stage {
   padding: 2.2rem 1.5rem 1rem;
   min-height: calc(100vh - 4.5rem);
@@ -128,7 +128,7 @@ body::after {
   gap: 1.5rem 2rem;
   align-items: start;
 }
-.stage-main { min-width: 0; }
+.stage-main { min-width: 0; overflow: visible; }
 .eyebrow {
   font-family: var(--stencil);
   letter-spacing: 0.28em;
@@ -139,60 +139,88 @@ body::after {
 }
 .drip-type {
   margin: 0;
-  line-height: 0.78;
-  font-family: var(--display);
+  line-height: 0.82;
+  font-family: var(--stencil);
   font-weight: 900;
   font-size: clamp(5.4rem, 22vw, 13.5rem);
-  letter-spacing: -0.03em;
+  letter-spacing: 0.012em;
   color: var(--cream);
+  position: relative;
+  padding: 0.08em 0.1em 0.16em 0;
+  overflow: visible;
 }
 .word {
   display: flex;
-  gap: 0.02em;
+  gap: 0.04em;
+  position: relative;
+  overflow: visible;
 }
 .ch {
   position: relative;
   display: inline-block;
+  overflow: visible;
+}
+.mist {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  color: var(--cream);
+  -webkit-text-fill-color: var(--cream);
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(1.6px);
+  transform: scale(1.018);
+  animation: mist-in 0.7s ease-out forwards;
+  --mist-op: 0.42;
+}
+.ch:nth-child(1) .mist { animation-delay: 0.05s; }
+.ch:nth-child(2) .mist { animation-delay: 0.13s; }
+.ch:nth-child(3) .mist { animation-delay: 0.21s; }
+.ch:nth-child(4) .mist { animation-delay: 0.29s; }
+@keyframes mist-in {
+  to { opacity: var(--mist-op); }
 }
 .letter {
+  position: relative;
+  z-index: 1;
   display: block;
-  clip-path: inset(0 0 100% 0);
-  animation: paint-down 0.72s cubic-bezier(0.2, 0.75, 0.2, 1) forwards;
-  text-shadow:
-    0 0 0.03em var(--cream),
-    0.12em 0.08em 0.45em rgba(255, 61, 138, 0.28),
-    -0.08em 0.16em 0.5em rgba(109, 255, 245, 0.18);
+  background-color: #e8dfcc;
+  background-image: url("spray-grain.png"), url("spray-grain.png");
+  background-size: 92px 92px, 148px 148px;
+  background-position: 0 0, 36px 18px;
+  background-repeat: repeat;
+  background-blend-mode: multiply, overlay;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  clip-path: inset(-8% -10% 100% -10%);
+  animation: paint-down 0.78s cubic-bezier(0.2, 0.75, 0.2, 1) forwards;
 }
 .ch:nth-child(2) .letter { animation-delay: 0.08s; }
 .ch:nth-child(3) .letter { animation-delay: 0.16s; }
 .ch:nth-child(4) .letter { animation-delay: 0.24s; }
 
 @keyframes paint-down {
-  to { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(-8% -10% -12% -10%); }
 }
 
-.drip-run {
+.overspray {
   position: absolute;
-  left: var(--x);
-  top: 73%;
-  width: var(--w);
-  height: var(--h);
+  left: -2%;
+  right: -2%;
+  top: -6%;
+  bottom: -10%;
+  width: auto;
+  height: auto;
   pointer-events: none;
-  color: var(--c);
-  overflow: visible;
-  filter: drop-shadow(0 1px 5px color-mix(in srgb, var(--c) 55%, transparent));
-  clip-path: inset(0 -70% 100% -70%);
-  animation: drip-grow 1.28s cubic-bezier(0.18, 0.76, 0.2, 1) var(--d) forwards;
+  z-index: 2;
+  opacity: 0;
+  animation: speck-in 1.2s ease-out 0.4s forwards;
 }
-.drip-run svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-@keyframes drip-grow {
-  0% { clip-path: inset(0 -70% 100% -70%); }
-  100% { clip-path: inset(0 -70% -22% -70%); }
+@keyframes speck-in {
+  to { opacity: 1; }
 }
 
 .co {
@@ -589,9 +617,13 @@ textarea { min-height: 7rem; resize: vertical; }
     animation: none;
     clip-path: none;
   }
-  .drip-run {
+  .mist {
     animation: none;
-    clip-path: inset(0 -70% -22% -70%);
+    opacity: var(--mist-op);
+  }
+  .overspray {
+    animation: none;
+    opacity: 1;
   }
   .burst, .spray-enter { display: none; }
   .btn:hover, .mural:hover { animation: none; }
