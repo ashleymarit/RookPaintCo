@@ -8,3 +8,16 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Hide the Netlify hostname: send that URL to the public subdomain.
+[[redirects]]
+  from = "https://rook-paint-co.netlify.app"
+  to = "https://rook.sidequestoperations.com"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://rook-paint-co.netlify.app/*"
+  to = "https://rook.sidequestoperations.com/:splat"
+  status = 301
+  force = true
