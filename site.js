@@ -3,6 +3,7 @@
   document.documentElement.classList.toggle("reduced", reduced);
 
   if (!reduced) initSpray();
+  initLooks();
 
   var form = document.getElementById("book-form");
   if (form) {
@@ -13,6 +14,33 @@
         note.textContent = "Studio demo — nothing was sent. The 555 number is a placeholder.";
       }
     });
+  }
+
+  function initLooks() {
+    var looks = document.querySelectorAll("article.look");
+    if (!looks.length) return;
+
+    function reveal(el) {
+      el.classList.add("in-view");
+    }
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      looks.forEach(reveal);
+      return;
+    }
+
+    looks.forEach(function (el) { el.classList.add("await-paint"); });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          reveal(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" });
+
+    looks.forEach(function (el) { io.observe(el); });
   }
 
   function initSpray() {
