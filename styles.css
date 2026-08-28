@@ -128,13 +128,13 @@ body::after {
 
 /* —— Stencil-painted display type —— */
 .stage {
-  position: relative;
   padding: 2.2rem 1.5rem 1.25rem;
   min-height: calc(100vh - 4.5rem);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(250px, 34vw);
-  gap: 1.5rem 2rem;
-  align-items: start;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 1.25rem;
+  align-items: stretch;
   isolation: isolate;
 }
 .stage-main { min-width: 0; overflow: visible; position: relative; z-index: 1; }
@@ -314,146 +314,63 @@ body::after {
   75% { transform: translate(-1px, 1px) rotate(-0.2deg); }
 }
 
-/* Right rail: spray-revealed stencil buttons, not a caption list */
+/* Full-width service row — spread, not a stacked box */
 .rack {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem 0 1.6rem;
+  border-left: 0;
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin: 0.2rem 0 1.5rem;
-  padding: 0;
-  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
   width: 100%;
-  align-self: start;
+  align-self: end;
 }
-.rack-btn {
-  position: relative;
-  isolation: isolate;
+.rack li { padding: 0; border: 0; }
+.rack a {
   display: block;
-  width: 100%;
-  text-decoration: none;
-  text-transform: uppercase;
   font-family: var(--stencil);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.8vw, 1.55rem);
   font-weight: 700;
-  padding: 1.25rem 1.2rem 1.1rem;
-  min-height: 5.7rem;
-  color: rgba(243, 234, 216, 0.26);
-  background: transparent;
-  box-shadow: inset 0 0 0 2px rgba(243, 234, 216, 0.16);
-  clip-path: polygon(0 9%, 97% 0, 100% 89%, 3% 100%);
-  transform: rotate(calc((var(--i, 0) - 1.4) * 0.45deg));
-  --rack-fill: var(--mag);
-  --rack-ink: var(--cream);
-  --rack-spray: rgba(255, 61, 138, 0.85);
+  color: var(--cream);
+  text-decoration: none;
+  padding: 0.85rem 0.9rem 0.75rem;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  text-shadow: 0 1px 10px rgba(20, 18, 16, 0.85);
+  animation: rack-spray 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both;
 }
-.rack-btn:nth-child(1) {
-  clip-path: polygon(0 10%, 98% 0, 100% 90%, 2% 100%);
-  --rack-fill: var(--mag);
-  --rack-ink: var(--cream);
-  --rack-spray: rgba(255, 61, 138, 0.9);
+.rack li:nth-child(1) a { animation-delay: 0.15s; }
+.rack li:nth-child(2) a { animation-delay: 0.32s; }
+.rack li:nth-child(3) a { animation-delay: 0.48s; }
+.rack li:nth-child(4) a { animation-delay: 0.64s; }
+.rack a:hover,
+.rack a:focus-visible {
+  color: #111;
+  background: var(--acid);
+  text-shadow: none;
 }
-.rack-btn:nth-child(2) {
-  clip-path: polygon(3% 0, 100% 8%, 97% 100%, 0 88%);
-  --rack-fill: var(--acid);
-  --rack-ink: #141210;
-  --rack-spray: rgba(230, 255, 61, 0.85);
-}
-.rack-btn:nth-child(3) {
-  clip-path: polygon(0 4%, 96% 0, 100% 94%, 4% 100%);
-  --rack-fill: var(--cyn);
-  --rack-ink: #141210;
-  --rack-spray: rgba(109, 255, 245, 0.85);
-}
-.rack-btn:nth-child(4) {
-  clip-path: polygon(2% 12%, 100% 0, 98% 86%, 0 100%);
-  --rack-fill: var(--cream);
-  --rack-ink: #1a1612;
-  --rack-spray: rgba(243, 234, 216, 0.8);
-}
-.rack-num {
+.rack b {
   display: block;
   font-weight: 500;
-  font-size: 0.78rem;
-  letter-spacing: 0.28em;
-  margin-bottom: 0.28rem;
+  font-size: 0.72rem;
   color: var(--mag);
-  opacity: 0.55;
+  letter-spacing: 0.22em;
+  margin-bottom: 0.2rem;
 }
-.rack-lab {
-  display: block;
-  font-size: clamp(1.5rem, 2.7vw, 2.25rem);
-  line-height: 0.92;
-  letter-spacing: 0.06em;
+.rack a:hover b,
+.rack a:focus-visible b { color: #111; }
+@keyframes rack-spray {
+  from { opacity: 0; filter: blur(8px); clip-path: inset(0 40% 0 0); }
+  to { opacity: 1; filter: none; clip-path: inset(0 0 0 0); }
 }
-.rack-fill {
-  position: absolute;
-  inset: -2px;
-  z-index: -1;
-  background-color: var(--rack-fill);
-  background-image: url("spray-grain.png"), url("spray-grain.png");
-  background-size: 90px 90px, 140px 140px;
-  background-position: 0 0, 40px 20px;
-  background-blend-mode: multiply, overlay;
-  clip-path: inset(-8% -10% 100% -10%);
-  pointer-events: none;
-}
-.rack-btn.is-painted {
-  color: var(--rack-ink);
-  box-shadow: none;
-}
-.rack-btn.is-painted .rack-num {
-  opacity: 0.9;
-  color: var(--rack-ink);
-}
-.rack-btn.is-painted .rack-fill {
-  animation: paint-down 0.88s cubic-bezier(0.2, 0.75, 0.2, 1) forwards;
-}
-.rack-btn.is-painted::before {
-  content: "";
-  position: absolute;
-  inset: -24%;
-  pointer-events: none;
-  z-index: 3;
-  background-image:
-    radial-gradient(circle, var(--rack-ink) 0.65px, transparent 0.75px),
-    radial-gradient(circle, var(--rack-fill) 0.9px, transparent 1px);
-  background-size: 12px 14px, 18px 17px;
-  background-position: 0 0, 6px 8px;
-  opacity: 0;
-  animation: rack-speck 0.9s ease-out 0.22s forwards;
-}
-.rack-btn.is-painted::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 150%;
-  height: 190%;
-  transform: translate(-50%, -50%) scale(0.2);
-  background: radial-gradient(circle, var(--rack-spray) 0%, transparent 70%);
-  opacity: 0;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  z-index: 2;
-  animation: rack-burst 0.72s ease-out;
-}
-@keyframes rack-speck {
-  to { opacity: 0.32; }
-}
-@keyframes rack-burst {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.18); }
-  36% { opacity: 0.88; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.28); }
-}
-.rack-btn:hover,
-.rack-btn:focus-visible {
-  animation: can-shake 0.28s ease;
-}
-.rack-btn:focus-visible {
-  outline: 2px solid var(--acid);
-  outline-offset: 3px;
-}
+.reduced .rack a { animation: none; }
+
 
 /* Page-enter spray bursts */
 .spray-enter {
@@ -732,7 +649,7 @@ textarea { min-height: 7rem; resize: vertical; }
 }
 
 @media (max-width: 860px) {
-  .stage { grid-template-columns: 1fr; min-height: auto; }
+  .stage { grid-template-columns: 1fr; min-height: calc(100vh - 4.5rem); }
   .mural-wall {
     -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, rgba(0,0,0,.35) 42%, #000 56%);
     mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, rgba(0,0,0,.35) 42%, #000 56%);
@@ -740,7 +657,7 @@ textarea { min-height: 7rem; resize: vertical; }
   .nav { position: static; transform: none; left: auto; top: auto; width: 100%; justify-content: center; padding-top: 0.35rem; }
   .site-header { flex-wrap: wrap; justify-content: center; }
   .brand { width: 100%; text-align: center; }
-  .rack { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .rack { grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; padding: 0.5rem 0 1.5rem; }
   .wall-grid { grid-template-columns: 1fr 1fr; }
   .mural.wide { grid-column: span 2; }
   .about-grid, .book-grid { grid-template-columns: 1fr; }
@@ -755,6 +672,7 @@ textarea { min-height: 7rem; resize: vertical; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .rack a { animation: none; }
   html { scroll-behavior: auto; }
   .letter {
     animation: none;
@@ -769,16 +687,7 @@ textarea { min-height: 7rem; resize: vertical; }
     opacity: 1;
   }
   .burst, .spray-enter { display: none; }
-  .btn:hover, .mural:hover, .rack-btn:hover { animation: none; }
+  .btn:hover, .mural:hover { animation: none; }
   #spray-layer { display: none; }
-  .rack-btn .rack-fill,
-  .rack-btn.is-painted .rack-fill {
-    animation: none;
-    clip-path: none;
-  }
-  .rack-btn.is-painted::before {
-    animation: none;
-    opacity: 0.28;
-  }
-  .rack-btn.is-painted::after { animation: none; display: none; }
+  /* mural.js paints the finished wall in one pass; keep the canvas */
 }
