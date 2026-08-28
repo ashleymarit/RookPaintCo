@@ -12,7 +12,11 @@
   var dpr = 1;
   var w = 0;
   var h = 0;
-  var t0 = performance.now();
+  var boot = performance.now();
+  var jump = 0;
+  var qm = /(?:\?|&)t=(\d+)/.exec(location.search || "");
+  if (qm) jump = parseInt(qm[1], 10) || 0;
+  var t0 = boot - jump;
   var stamps = {};
   var cursor = [];
   var dripCursor = [];
@@ -361,9 +365,13 @@
     paintTo(DURATION);
     revealButtons(DURATION);
   } else {
-    running = true;
-    revealButtons(0);
-    requestAnimationFrame(frame);
+    var elapsed = elapsedNow();
+    paintTo(elapsed);
+    revealButtons(elapsed);
+    if (elapsed < DURATION) {
+      running = true;
+      requestAnimationFrame(frame);
+    }
   }
 
   window.addEventListener("resize", onResize);
