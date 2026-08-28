@@ -128,11 +128,12 @@ body::after {
 
 /* —— Stencil-painted display type —— */
 .stage {
-  padding: 2.2rem 1.5rem 1rem;
+  padding: 2.2rem 1.5rem 1.25rem;
   min-height: calc(100vh - 4.5rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-  gap: 1.5rem 2.5rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 1.25rem;
   align-items: stretch;
   isolation: isolate;
 }
@@ -313,35 +314,35 @@ body::after {
   75% { transform: translate(-1px, 1px) rotate(-0.2deg); }
 }
 
-/* Right rail: big spray-stencil buttons */
+/* Full-width service row — spread, not a stacked box */
 .rack {
   list-style: none;
   margin: 0;
-  padding: 2.5rem 0 2rem;
+  padding: 0.4rem 0 1.6rem;
   border-left: 0;
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.85rem;
-  align-self: stretch;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  width: 100%;
+  align-self: end;
 }
 .rack li { padding: 0; border: 0; }
 .rack a {
   display: block;
   font-family: var(--stencil);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-size: clamp(1.35rem, 2.4vw, 2.15rem);
+  font-size: clamp(1.05rem, 1.8vw, 1.55rem);
   font-weight: 700;
   color: var(--cream);
   text-decoration: none;
-  padding: 0.95rem 1.1rem 0.85rem;
-  background:
-    linear-gradient(180deg, rgba(243,234,216,0.08), rgba(243,234,216,0.02));
-  border: 1px solid var(--line);
-  box-shadow: inset 0 0 0 1px rgba(243,234,216,0.04);
+  padding: 0.35rem 0 0.55rem;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid color-mix(in srgb, var(--cream) 28%, transparent);
+  box-shadow: none;
   text-shadow: 0 1px 10px rgba(20, 18, 16, 0.85);
   animation: rack-spray 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both;
 }
@@ -351,9 +352,9 @@ body::after {
 .rack li:nth-child(4) a { animation-delay: 0.64s; }
 .rack a:hover,
 .rack a:focus-visible {
-  color: #111;
-  background: var(--acid);
-  border-color: var(--acid);
+  color: var(--acid);
+  background: none;
+  border-bottom-color: var(--acid);
 }
 .rack b {
   display: block;
@@ -364,7 +365,7 @@ body::after {
   margin-bottom: 0.2rem;
 }
 .rack a:hover b,
-.rack a:focus-visible b { color: #111; }
+.rack a:focus-visible b { color: var(--acid); }
 @keyframes rack-spray {
   from { opacity: 0; filter: blur(8px); clip-path: inset(0 40% 0 0); }
   to { opacity: 1; filter: none; clip-path: inset(0 0 0 0); }
@@ -657,7 +658,7 @@ textarea { min-height: 7rem; resize: vertical; }
   .nav { position: static; transform: none; left: auto; top: auto; width: 100%; justify-content: center; padding-top: 0.35rem; }
   .site-header { flex-wrap: wrap; justify-content: center; }
   .brand { width: 100%; text-align: center; }
-  .rack { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 0.5rem 0 1.5rem; }
+  .rack { grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; padding: 0.5rem 0 1.5rem; }
   .wall-grid { grid-template-columns: 1fr 1fr; }
   .mural.wide { grid-column: span 2; }
   .about-grid, .book-grid { grid-template-columns: 1fr; }
