@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a wall — Rook Paint Co.</title>
+  <meta name="description" content="Demo booking for Rook Paint Co. Fake Half Moon Bay shop. (650) 555-0147.">
+  <link rel="canonical" href="https://rook-paint-co.netlify.app/book.html">
+  <meta property="og:title" content="Book a wall — Rook Paint Co.">
+  <meta property="og:description" content="How to reach the studio. Demo contact only.">
+  <meta property="og:url" content="https://rook-paint-co.netlify.app/book.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#141210">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Big+Shoulders+Stencil+Display:wght@500;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html">Rook Paint Co.</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="work.html">Walls</a>
+      <a href="about.html">About</a>
+      <a href="book.html" aria-current="page">Book</a>
+    </nav>
+  </header>
+  <main id="main" class="page">
+    <p class="page-kicker">Book</p>
+    <h1>Work a wall.</h1>
+    <p class="intro">Send the wall. Size, photos, timing. We sketch after we have seen it. This page is a studio demo — the number does not ring.</p>
+    <div class="book-grid">
+      <ol class="steps">
+        <li>
+          <span class="n" aria-hidden="true">1</span>
+          <div>
+            <h2>The wall</h2>
+            <p>Photos in daylight, a rough width and height, and whether it is outside. Note sun, neighbors, and anything that cannot be painted over.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n" aria-hidden="true">2</span>
+          <div>
+            <h2>A pass</h2>
+            <p>We send a color and type sketch. One revision is part of the job. The wall decides the rest once we are on the ladder.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n" aria-hidden="true">3</span>
+          <div>
+            <h2>Paint days</h2>
+            <p>Weather window, access, and a start hour. We bring the cans. You keep the wall clear.</p>
+          </div>
+        </li>
+      </ol>
+      <div>
+        <form class="panel" id="book-form" action="#" method="post">
+          <h2>Reach the studio</h2>
+          <label for="name">Name</label>
+          <input id="name" name="name" autocomplete="name" required>
+          <label for="wall">Wall</label>
+          <input id="wall" name="wall" placeholder="Where / what" required>
+          <label for="size">Size</label>
+          <input id="size" name="size" placeholder="e.g. 12 × 40 ft">
+          <label for="note">Note</label>
+          <textarea id="note" name="note" placeholder="Timing, photos coming, anything the wall is hiding"></textarea>
+          <p style="margin:1rem 0 0">
+            <button class="btn" type="submit">Send (demo)</button>
+          </p>
+          <p class="form-note" id="form-note" role="status"></p>
+        </form>
+        <div class="contact-block">
+          <p><a class="phone" href="tel:+16505550147">(650) 555-0147</a></p>
+          <p>Demo shop · Half Moon Bay<br>7 Ladderwell Court<br>(not a real street)</p>
+          <p><a href="mailto:book@rookpaint.demo">book@rookpaint.demo</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p>Demo shop · Half Moon Bay · (650) 555-0147</p>
+    <p class="demo">Studio demo</p>
+  </footer>
+  <script src="site.js"></script>
+</body>
+</html>
