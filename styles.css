@@ -338,10 +338,9 @@ body::after {
   font-weight: 700;
   color: var(--cream);
   text-decoration: none;
-  padding: 0.35rem 0 0.55rem;
+  padding: 0.85rem 0.9rem 0.75rem;
   background: none;
   border: 0;
-  border-bottom: 2px solid color-mix(in srgb, var(--cream) 28%, transparent);
   box-shadow: none;
   text-shadow: 0 1px 10px rgba(20, 18, 16, 0.85);
   animation: rack-spray 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both;
@@ -352,9 +351,9 @@ body::after {
 .rack li:nth-child(4) a { animation-delay: 0.64s; }
 .rack a:hover,
 .rack a:focus-visible {
-  color: var(--acid);
-  background: none;
-  border-bottom-color: var(--acid);
+  color: #111;
+  background: var(--acid);
+  text-shadow: none;
 }
 .rack b {
   display: block;
@@ -365,7 +364,7 @@ body::after {
   margin-bottom: 0.2rem;
 }
 .rack a:hover b,
-.rack a:focus-visible b { color: var(--acid); }
+.rack a:focus-visible b { color: #111; }
 @keyframes rack-spray {
   from { opacity: 0; filter: blur(8px); clip-path: inset(0 40% 0 0); }
   to { opacity: 1; filter: none; clip-path: inset(0 0 0 0); }
