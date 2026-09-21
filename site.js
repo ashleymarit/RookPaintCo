@@ -122,7 +122,8 @@
       for (i = 0; i < d.length; i += 4) {
         n = 118 + ((rng() * 38) | 0);
         d[i] = d[i + 1] = d[i + 2] = n;
-        d[i + 3] = 255;
+        /* Variable alpha film grain — avoids hard tile edges when stamped. */
+        d[i + 3] = 40 + ((rng() * 90) | 0);
       }
       g.putImageData(img, 0, 0);
       return c;
@@ -164,7 +165,9 @@
       g.addColorStop(0.66, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + (0.016 + wet * 0.018) + ")");
       g.addColorStop(1, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ",0)");
       sctx.fillStyle = g;
-      sctx.fillRect(0, 0, size, size);
+      sctx.beginPath();
+      sctx.arc(cx, cx, 46 * px, 0, Math.PI * 2);
+      sctx.fill();
 
       g = sctx.createRadialGradient(cx, cx, 0, cx, cx, 13 * px);
       g.addColorStop(0, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + (0.14 + wet * 0.12) + ")");
@@ -221,10 +224,24 @@
         }
       }
 
+      /* Grain only on painted pigment — never a full opaque tile square. */
       sctx.save();
-      sctx.globalCompositeOperation = "overlay";
-      sctx.globalAlpha = 0.16;
+      sctx.globalCompositeOperation = "source-atop";
+      sctx.globalAlpha = 0.14;
       sctx.drawImage(grainTile, 0, 0, size, size);
+      sctx.restore();
+
+      /* Soft circular mask so stamp edges never read as a box while moving. */
+      sctx.save();
+      sctx.globalCompositeOperation = "destination-in";
+      g = sctx.createRadialGradient(cx, cx, 0, cx, cx, 48 * px);
+      g.addColorStop(0, "rgba(0,0,0,1)");
+      g.addColorStop(0.72, "rgba(0,0,0,1)");
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      sctx.fillStyle = g;
+      sctx.beginPath();
+      sctx.arc(cx, cx, 48 * px, 0, Math.PI * 2);
+      sctx.fill();
       sctx.restore();
     }
 
@@ -240,7 +257,9 @@
       g.addColorStop(0.7, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ",0.07)");
       g.addColorStop(1, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ",0)");
       x.fillStyle = g;
-      x.fillRect(0, 0, size, size);
+      x.beginPath();
+      x.arc(cx, cx, 11, 0, Math.PI * 2);
+      x.fill();
       return c;
     }
 
