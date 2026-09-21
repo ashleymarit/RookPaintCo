@@ -57,23 +57,81 @@
         <h2>What we take</h2>
         <p>Commissions for exteriors and interiors. Custom spray on panels and objects. No vehicles-as-billboards. No “make it pop” without a wall to stand in front of. If you have a wall, send photos and a size. We will tell you if it is ours.</p>
       </div>
-      <div class="swatch" role="img" aria-label="Vertical paint test: cobalt, vermilion, cadmium, oxide, enamel, sky, violet, rust, cream">
+      <div class="swatch" role="img" aria-label="Vertical paint test with gravity drips: oxide, vermilion, enamel, cream">
         <svg class="swatch-drips" viewBox="0 0 80 400" preserveAspectRatio="none" aria-hidden="true">
-          <path fill="#3f6b4a" d="M26 28 C28 70 22 110 27 160 C31 200 24 240 28 290 C30 318 22 340 34 368 C36 376 18 380 16 368 C14 340 24 300 20 250 C16 200 24 160 20 110 C18 70 22 40 26 28Z"/>
-          <ellipse cx="25" cy="372" rx="9" ry="8" fill="#3f6b4a"/>
-          <circle cx="15" cy="380" r="2.2" fill="#3f6b4a" opacity=".85"/>
-          <circle cx="36" cy="376" r="1.4" fill="#3f6b4a" opacity=".7"/>
-          <path fill="#e5365a" d="M48 88 C52 130 44 170 50 220 C54 255 46 290 49 330 C51 348 44 360 56 378 C58 384 42 388 40 376 C38 352 48 318 44 270 C40 222 50 180 46 140 C44 110 46 96 48 88Z"/>
-          <ellipse cx="48" cy="380" rx="8.5" ry="7.5" fill="#e5365a"/>
-          <circle cx="38" cy="388" r="2" fill="#e5365a" opacity=".8"/>
-          <circle cx="58" cy="384" r="1.2" fill="#e5365a" opacity=".65"/>
-          <path fill="#2a6f68" d="M12 160 C14 200 8 230 13 270 C16 292 9 310 12 328 C13 338 8 346 16 354 C18 358 6 360 5 350 C4 330 12 310 8 280 C5 250 12 220 10 190 C9 172 10 164 12 160Z"/>
-          <ellipse cx="11" cy="352" rx="6.5" ry="5.8" fill="#2a6f68"/>
-          <circle cx="4" cy="358" r="1.5" fill="#2a6f68" opacity=".8"/>
-          <path fill="#f3ead8" d="M62 248 C64 280 58 305 63 332 C65 346 60 356 66 368 C67 372 56 374 55 366 C54 348 62 328 58 304 C56 284 60 260 62 248Z"/>
-          <ellipse cx="61" cy="368" rx="5.8" ry="5.2" fill="#f3ead8"/>
-          <circle cx="54" cy="374" r="1.3" fill="#f3ead8" opacity=".75"/>
-          <circle cx="68" cy="370" r=".8" fill="#f3ead8" opacity=".55"/>
+          <defs>
+            <linearGradient id="drip-ox" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2a9b52" stop-opacity="0.95"/>
+              <stop offset="0.72" stop-color="#2a9b52" stop-opacity="0.7"/>
+              <stop offset="1" stop-color="#2a9b52" stop-opacity="0.15"/>
+            </linearGradient>
+            <linearGradient id="drip-mag" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e5365a" stop-opacity="0.95"/>
+              <stop offset="0.7" stop-color="#e5365a" stop-opacity="0.65"/>
+              <stop offset="1" stop-color="#e5365a" stop-opacity="0.12"/>
+            </linearGradient>
+            <linearGradient id="drip-en" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#178a62" stop-opacity="0.92"/>
+              <stop offset="0.68" stop-color="#178a62" stop-opacity="0.62"/>
+              <stop offset="1" stop-color="#178a62" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="drip-cr" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f3ead8" stop-opacity="0.9"/>
+              <stop offset="0.75" stop-color="#f3ead8" stop-opacity="0.55"/>
+              <stop offset="1" stop-color="#f3ead8" stop-opacity="0.08"/>
+            </linearGradient>
+            <filter id="drip-soft" x="-40%" y="-10%" width="180%" height="120%">
+              <feGaussianBlur stdDeviation="0.55"/>
+            </filter>
+          </defs>
+          <!-- Uneven gravity runs: thick head, pinched mid, soft tip -->
+          <g filter="url(#drip-soft)">
+            <path fill="url(#drip-ox)" d="M24 22
+              C27 24 29 38 28.5 58
+              C28 86 22 112 25 148
+              C28 188 19 228 23 268
+              C26 298 18 328 22 352
+              C24 364 18 372 14 378
+              C11 382 8 376 10 370
+              C14 352 20 330 17 300
+              C14 262 22 230 18 190
+              C15 150 22 112 19 78
+              C17 48 20 30 24 22Z"/>
+            <ellipse cx="13" cy="378" rx="3.2" ry="4.8" fill="#2a9b52" opacity="0.35"/>
+            <circle cx="9.5" cy="386" r="1.1" fill="#2a9b52" opacity="0.28"/>
+            <path fill="url(#drip-mag)" d="M50 78
+              C54 82 57 98 55 124
+              C52 158 58 188 52 224
+              C47 258 55 288 50 318
+              C47 338 52 352 46 366
+              C42 374 36 370 38 362
+              C42 344 46 322 48 292
+              C50 256 42 228 46 196
+              C50 164 44 132 47 108
+              C49 92 48 82 50 78Z"/>
+            <ellipse cx="44" cy="368" rx="2.6" ry="3.8" fill="#e5365a" opacity="0.32"/>
+            <circle cx="40" cy="376" r="0.9" fill="#e5365a" opacity="0.22"/>
+            <path fill="url(#drip-en)" d="M14 148
+              C16 152 18 168 16.5 190
+              C14 218 19 242 15 268
+              C12 288 17 304 13 322
+              C11 332 14 340 10 346
+              C7 350 5 346 6 340
+              C9 324 12 304 14 280
+              C16 252 10 228 13 204
+              C15 180 13 160 14 148Z"/>
+            <ellipse cx="9" cy="346" rx="2.1" ry="3.1" fill="#178a62" opacity="0.3"/>
+            <path fill="url(#drip-cr)" d="M64 236
+              C66 240 68 256 66 276
+              C63 300 69 318 65 338
+              C63 350 67 360 62 368
+              C59 372 56 368 57 362
+              C60 348 62 330 64 310
+              C66 288 60 268 63 252
+              C64 242 64 238 64 236Z"/>
+            <ellipse cx="61" cy="368" rx="1.8" ry="2.6" fill="#f3ead8" opacity="0.28"/>
+            <circle cx="58" cy="374" r="0.7" fill="#f3ead8" opacity="0.2"/>
+          </g>
         </svg>
       </div>
     </div>

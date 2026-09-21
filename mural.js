@@ -274,16 +274,18 @@
   ];
 
   var drips = [
-    { x: 0.74, y: 0.28, color: "mag", start: 7000, end: 16000, len: 0.22, width: 0.012 },
-    { x: 0.81, y: 0.36, color: "mag", start: 8200, end: 17500, len: 0.18, width: 0.009 },
-    { x: 0.9, y: 0.42, color: "cyn", start: 9000, end: 19000, len: 0.28, width: 0.011 },
-    { x: 0.86, y: 0.55, color: "cyn", start: 11000, end: 21000, len: 0.2, width: 0.008 },
-    { x: 0.16, y: 0.68, color: "rust", start: 10000, end: 20000, len: 0.24, width: 0.01 },
-    { x: 0.48, y: 0.9, color: "acid", start: 12000, end: 22000, len: 0.08, width: 0.01 },
-    { x: 0.62, y: 0.48, color: "cream", start: 15500, end: 25000, len: 0.26, width: 0.01 },
-    { x: 0.58, y: 0.22, color: "cream", start: 16500, end: 26000, len: 0.14, width: 0.007 },
-    { x: 0.7, y: 0.6, color: "mag", start: 18000, end: 28000, len: 0.16, width: 0.009 },
-    { x: 0.12, y: 0.62, color: "cyn", start: 19000, end: 29000, len: 0.2, width: 0.008 }
+    { x: 0.74, y: 0.26, color: "mag", start: 7000, end: 16500, len: 0.26, width: 0.014, lean: 0.012, wobble: 1.15 },
+    { x: 0.79, y: 0.34, color: "mag", start: 8400, end: 18000, len: 0.14, width: 0.007, lean: -0.006, wobble: 0.85 },
+    { x: 0.91, y: 0.4, color: "cyn", start: 9000, end: 19500, len: 0.32, width: 0.011, lean: 0.008, wobble: 1.4 },
+    { x: 0.87, y: 0.52, color: "enamel", start: 10500, end: 21500, len: 0.22, width: 0.009, lean: -0.01, wobble: 1.05 },
+    { x: 0.18, y: 0.42, color: "oxide", start: 7500, end: 18500, len: 0.34, width: 0.013, lean: 0.004, wobble: 1.25 },
+    { x: 0.14, y: 0.66, color: "rust", start: 10000, end: 20500, len: 0.2, width: 0.008, lean: -0.014, wobble: 0.95 },
+    { x: 0.48, y: 0.88, color: "acid", start: 12000, end: 22000, len: 0.1, width: 0.01, lean: 0.002, wobble: 0.7 },
+    { x: 0.62, y: 0.46, color: "cream", start: 15500, end: 25500, len: 0.28, width: 0.01, lean: 0.01, wobble: 1.1 },
+    { x: 0.56, y: 0.2, color: "cream", start: 16500, end: 26000, len: 0.12, width: 0.006, lean: -0.008, wobble: 0.9 },
+    { x: 0.7, y: 0.58, color: "oxide", start: 17000, end: 27500, len: 0.18, width: 0.008, lean: 0.006, wobble: 1.0 },
+    { x: 0.11, y: 0.58, color: "sky", start: 18500, end: 29000, len: 0.24, width: 0.009, lean: -0.005, wobble: 1.2 },
+    { x: 0.34, y: 0.3, color: "enamel", start: 11000, end: 23000, len: 0.2, width: 0.007, lean: 0.015, wobble: 1.35 }
   ];
 
   function stampsAt(job, elapsed) {
@@ -324,27 +326,84 @@
     }
   }
 
+  function dripRgb(color) {
+    var s = stamps[color];
+    if (!s) return [241, 232, 214];
+    /* Approximate from stamp seeds used at makeStamp — keep in sync with palette. */
+    var map = {
+      mag: [229, 54, 90],
+      acid: [242, 177, 41],
+      cyn: [47, 98, 232],
+      rust: [212, 102, 42],
+      cream: [243, 234, 216],
+      fog: [168, 158, 142],
+      violet: [123, 63, 212],
+      oxide: [42, 155, 82],
+      enamel: [23, 138, 98],
+      sky: [61, 154, 138]
+    };
+    return map[color] || [241, 232, 214];
+  }
+
   function drawDripSegment(d, fromU, toU, di) {
     if (toU <= fromU) return;
-    var x = d.x * w;
+    var rgb = dripRgb(d.color);
+    var x0 = d.x * w;
     var y0 = d.y * h;
     var maxL = d.len * h;
-    var yA = y0 + fromU * maxL;
-    var yB = y0 + toU * maxL;
-    var stamp = stamps[d.color];
-    var ww = d.width * Math.min(w, h);
-    var y, k, rng, sz;
-    k = 0;
-    for (y = yA; y <= yB; y += Math.max(1.2, ww * 0.45)) {
-      rng = rngFor(200 + di, (fromU * 1000 + k) | 0);
-      sz = ww * (1.6 + rng() * 1.8);
-      ctx.globalAlpha = 0.45 + rng() * 0.35;
-      ctx.drawImage(stamp, x - sz / 2 + (rng() - 0.5) * ww * 0.8, y - sz / 2, sz, sz);
-      k++;
+    var baseW = d.width * Math.min(w, h);
+    var lean = (d.lean || 0) * w;
+    var wobble = d.wobble || 1;
+    var steps = Math.max(6, Math.ceil((toU - fromU) * maxL / 2.2));
+    var i, t, t2, y, x, half, alpha, tipR, g, rng;
+
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    for (i = 0; i < steps; i++) {
+      t = fromU + ((toU - fromU) * i) / steps;
+      t2 = fromU + ((toU - fromU) * (i + 1)) / steps;
+      rng = rngFor(410 + di, (t * 800) | 0);
+
+      /* Gravity taper: thicker near origin, thinner toward tip. */
+      half = baseW * (1.15 - t * 0.78) * (0.82 + rng() * 0.28);
+      if (half < 0.35) half = 0.35;
+
+      y = y0 + t * maxL;
+      x = x0 + lean * t * t + Math.sin(t * 9.2 * wobble + di) * baseW * 0.55 * wobble
+        + Math.sin(t * 21 + di * 1.7) * baseW * 0.18;
+
+      alpha = (0.72 - t * 0.42) * (0.75 + rng() * 0.25);
+      if (alpha < 0.05) alpha = 0.05;
+
+      ctx.strokeStyle = "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + alpha + ")";
+      ctx.lineWidth = half * 2;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(
+        x0 + lean * t2 * t2 + Math.sin(t2 * 9.2 * wobble + di) * baseW * 0.55 * wobble
+          + Math.sin(t2 * 21 + di * 1.7) * baseW * 0.18,
+        y0 + t2 * maxL
+      );
+      ctx.stroke();
     }
-    var tip = ww * (2.4 + (toU < 1 ? 1.6 : 0.4));
-    ctx.globalAlpha = 0.55;
-    ctx.drawImage(stamp, x - tip / 2, yB - tip * 0.35, tip, tip * 1.15);
+
+    /* Soft translucent tip bead — not a hard circle stamp. */
+    t = toU;
+    rng = rngFor(510 + di, (t * 900) | 0);
+    y = y0 + t * maxL;
+    x = x0 + lean * t * t + Math.sin(t * 9.2 * wobble + di) * baseW * 0.55 * wobble;
+    tipR = baseW * (1.1 + (1 - t) * 1.4) * (0.9 + rng() * 0.35);
+    g = ctx.createRadialGradient(x, y + tipR * 0.15, 0, x, y + tipR * 0.35, tipR * 1.8);
+    g.addColorStop(0, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + (0.55 * (1 - t * 0.35)) + ")");
+    g.addColorStop(0.45, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + "," + (0.22 * (1 - t * 0.4)) + ")");
+    g.addColorStop(1, "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ",0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.ellipse(x, y + tipR * 0.2, tipR * 0.72, tipR * 1.15, lean * 0.002, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
   }
 
   function paintTo(elapsed) {
