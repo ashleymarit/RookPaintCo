@@ -121,12 +121,13 @@
     return c;
   }
 
-  stamps.mag = makeStamp(255, 61, 138, 11);
-  stamps.acid = makeStamp(230, 255, 61, 22);
-  stamps.cyn = makeStamp(109, 255, 245, 33);
-  stamps.rust = makeStamp(196, 92, 42, 44);
+  stamps.mag = makeStamp(229, 54, 90, 11);
+  stamps.acid = makeStamp(242, 177, 41, 22);
+  stamps.cyn = makeStamp(47, 98, 232, 33);
+  stamps.rust = makeStamp(212, 102, 42, 44);
   stamps.cream = makeStamp(243, 234, 216, 55);
   stamps.fog = makeStamp(168, 158, 142, 66);
+  stamps.violet = makeStamp(123, 63, 212, 77);
 
   function seglen(path) {
     if (path._len) return path._len;
@@ -244,6 +245,7 @@
     { kind: "field", color: "rust", path: [[0.02, 0.55], [0.18, 0.7], [0.12, 0.9], [0.32, 0.96]], size: 0.4, start: 2800, end: 9000, rate: 22, jitter: 0.07, alpha: 0.6 },
     { kind: "field", color: "acid", path: [[0.2, 0.78], [0.45, 0.88], [0.68, 0.82], [0.5, 0.96]], size: 0.36, start: 4200, end: 11000, rate: 24, jitter: 0.06, alpha: 0.62 },
     { kind: "field", color: "mag", path: [[0.35, 0.08], [0.22, 0.28], [0.48, 0.4], [0.3, 0.52]], size: 0.28, start: 6000, end: 13000, rate: 18, jitter: 0.09, alpha: 0.4 },
+    { kind: "field", color: "violet", path: [[0.55, 0.55], [0.7, 0.62], [0.62, 0.78], [0.42, 0.7]], size: 0.32, start: 7500, end: 14500, rate: 16, jitter: 0.08, alpha: 0.48 },
     { kind: "scatter", color: "cream", x: 0.5, y: 0.28, rx: 0.28, ry: 0.2, size: 0.16, start: 7000, end: 15000, rate: 14, alpha: 0.35 },
     { kind: "stencil", color: "cream", clip: clipRook, bx: 0.48, by: 0.1, bw: 0.32, bh: 0.58, size: 0.22, start: 9000, end: 17500, rate: 36, jitter: 0.02, alpha: 0.85 },
     { kind: "scatter", color: "mag", x: 0.62, y: 0.32, rx: 0.18, ry: 0.28, size: 0.2, start: 9800, end: 16000, rate: 10, alpha: 0.28 },
