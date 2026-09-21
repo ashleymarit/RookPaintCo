@@ -74,9 +74,9 @@
     ];
     var canIndex = 0;
     var canStart = performance.now();
-    var CAN_HOLD = 7000;
-    var LIFE = 3000;
-    var MAX = 2000;
+    var CAN_HOLD = 9000;
+    var LIFE = 2200;
+    var MAX = 1400;
     var particles = [];
     var lastX = null;
     var lastY = null;
@@ -114,8 +114,8 @@
     function emit(x, y, speed, isTouch, now) {
       var rgb = canColor(now);
       var slow = 1 / (1 + speed * 2.1);
-      var coreN = isTouch ? (5 + (slow * 7) | 0) : (14 + (slow * 20) | 0);
-      var haloN = isTouch ? (4 + (slow * 5) | 0) : (10 + (slow * 14) | 0);
+      var coreN = isTouch ? (4 + (slow * 5) | 0) : (9 + (slow * 12) | 0);
+      var haloN = isTouch ? (3 + (slow * 4) | 0) : (6 + (slow * 8) | 0);
       var i, ang, dist, g, c, life, px, py;
 
       for (i = 0; i < coreN; i++) {
@@ -126,7 +126,7 @@
         py = y + Math.sin(ang) * dist;
         c = jitter(rgb);
         life = LIFE * (0.86 + Math.random() * 0.2);
-        addDot(px, py, 1.35 + Math.random() * (3.1 + slow * 2.0), c, 0.48 + Math.random() * 0.28, now, life);
+        addDot(px, py, 1.15 + Math.random() * (2.4 + slow * 1.5), c, 0.36 + Math.random() * 0.22, now, life);
       }
 
       for (i = 0; i < haloN; i++) {
@@ -136,24 +136,24 @@
         addDot(
           x + Math.cos(ang) * dist,
           y + Math.sin(ang) * dist,
-          0.55 + Math.random() * 1.55,
+          0.45 + Math.random() * 1.2,
           c,
-          0.18 + Math.random() * 0.22,
+          0.12 + Math.random() * 0.16,
           now,
           LIFE * (0.72 + Math.random() * 0.26)
         );
       }
 
-      if (Math.random() < 0.22 + slow * 0.18) {
+      if (Math.random() < 0.12 + slow * 0.12) {
         ang = Math.random() * Math.PI * 2;
         dist = Math.random() * 7;
         c = jitter(rgb);
         addDot(
           x + Math.cos(ang) * dist,
           y + Math.sin(ang) * dist + 2,
-          2.8 + Math.random() * 3.2,
+          2.4 + Math.random() * 2.6,
           c,
-          0.46 + Math.random() * 0.2,
+          0.32 + Math.random() * 0.16,
           now,
           LIFE * (0.9 + Math.random() * 0.12)
         );
@@ -188,7 +188,7 @@
         if (isTouch) {
           if (dist > 2 && dist < 26) emit(x, y, speed, true, now);
         } else if (dist > 1) {
-          var steps = Math.min(8, Math.max(1, Math.round(dist / 7)));
+          var steps = Math.min(5, Math.max(1, Math.round(dist / 9)));
           var s;
           for (s = 1; s <= steps; s++) {
             emit(lastX + (dx * s) / steps, lastY + (dy * s) / steps, speed, false, now);
