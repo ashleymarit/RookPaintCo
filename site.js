@@ -62,16 +62,17 @@
     var stampPx = 0;
 
     var CANS = [
+      [42, 155, 82],
+      [23, 138, 98],
+      [61, 154, 138],
       [229, 54, 90],
       [242, 177, 41],
       [47, 98, 232],
-      [123, 63, 212],
-      [63, 107, 74],
-      [42, 111, 104]
+      [123, 63, 212]
     ];
     var canIndex = 0;
     var canStart = performance.now();
-    var CAN_HOLD = 9000;
+    var CAN_HOLD = 5500;
     var LIFE = 3000;
     var MAX_BURSTS = 150;
     var MAX_DROPS = 380;

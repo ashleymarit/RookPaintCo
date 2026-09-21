@@ -128,9 +128,9 @@
   stamps.cream = makeStamp(243, 234, 216, 55);
   stamps.fog = makeStamp(168, 158, 142, 66);
   stamps.violet = makeStamp(123, 63, 212, 77);
-  stamps.oxide = makeStamp(63, 107, 74, 88);
-  stamps.enamel = makeStamp(42, 111, 104, 99);
-  stamps.sky = makeStamp(92, 135, 176, 111);
+  stamps.oxide = makeStamp(42, 155, 82, 88);
+  stamps.enamel = makeStamp(23, 138, 98, 99);
+  stamps.sky = makeStamp(61, 154, 138, 111);
 
   function seglen(path) {
     if (path._len) return path._len;
@@ -242,6 +242,10 @@
   }
 
   var jobs = [
+    { kind: "field", color: "oxide", path: [[0.02, 0.2], [0.28, 0.15], [0.45, 0.35], [0.2, 0.5]], size: 0.48, start: 0, end: 9000, rate: 30, jitter: 0.07, alpha: 0.75 },
+    { kind: "field", color: "enamel", path: [[0.5, 0.55], [0.72, 0.48], [0.88, 0.7], [0.6, 0.85]], size: 0.44, start: 600, end: 11000, rate: 26, jitter: 0.07, alpha: 0.7 },
+    { kind: "field", color: "sky", path: [[0.15, 0.02], [0.5, 0.0], [0.85, 0.08], [0.7, 0.22]], size: 0.4, start: 0, end: 7500, rate: 22, jitter: 0.06, alpha: 0.6 },
+
     { kind: "field", color: "fog", path: [[0.12, 0.18], [0.4, 0.12], [0.7, 0.22], [0.88, 0.18]], size: 0.42, start: 0, end: 4500, rate: 22, jitter: 0.08, alpha: 0.55 },
     { kind: "field", color: "sky", path: [[0.08, 0.05], [0.38, 0.02], [0.68, 0.07], [0.94, 0.04]], size: 0.38, start: 200, end: 6800, rate: 20, jitter: 0.07, alpha: 0.52 },
     { kind: "field", color: "mag", path: [[0.72, 0.06], [0.9, 0.22], [0.78, 0.48], [0.55, 0.62]], size: 0.5, start: 400, end: 6200, rate: 26, jitter: 0.07, alpha: 0.7 },
