@@ -128,6 +128,9 @@
   stamps.cream = makeStamp(243, 234, 216, 55);
   stamps.fog = makeStamp(168, 158, 142, 66);
   stamps.violet = makeStamp(123, 63, 212, 77);
+  stamps.oxide = makeStamp(63, 107, 74, 88);
+  stamps.enamel = makeStamp(42, 111, 104, 99);
+  stamps.sky = makeStamp(92, 135, 176, 111);
 
   function seglen(path) {
     if (path._len) return path._len;
@@ -240,13 +243,16 @@
 
   var jobs = [
     { kind: "field", color: "fog", path: [[0.12, 0.18], [0.4, 0.12], [0.7, 0.22], [0.88, 0.18]], size: 0.42, start: 0, end: 4500, rate: 22, jitter: 0.08, alpha: 0.55 },
+    { kind: "field", color: "sky", path: [[0.08, 0.05], [0.38, 0.02], [0.68, 0.07], [0.94, 0.04]], size: 0.38, start: 200, end: 6800, rate: 20, jitter: 0.07, alpha: 0.52 },
     { kind: "field", color: "mag", path: [[0.72, 0.06], [0.9, 0.22], [0.78, 0.48], [0.55, 0.62]], size: 0.5, start: 400, end: 6200, rate: 26, jitter: 0.07, alpha: 0.7 },
     { kind: "field", color: "cyn", path: [[0.82, 0.08], [0.94, 0.35], [0.88, 0.7], [0.76, 0.92]], size: 0.38, start: 1600, end: 8000, rate: 24, jitter: 0.06, alpha: 0.65 },
     { kind: "field", color: "rust", path: [[0.02, 0.55], [0.18, 0.7], [0.12, 0.9], [0.32, 0.96]], size: 0.4, start: 2800, end: 9000, rate: 22, jitter: 0.07, alpha: 0.6 },
     { kind: "field", color: "acid", path: [[0.2, 0.78], [0.45, 0.88], [0.68, 0.82], [0.5, 0.96]], size: 0.36, start: 4200, end: 11000, rate: 24, jitter: 0.06, alpha: 0.62 },
     { kind: "field", color: "mag", path: [[0.35, 0.08], [0.22, 0.28], [0.48, 0.4], [0.3, 0.52]], size: 0.28, start: 6000, end: 13000, rate: 18, jitter: 0.09, alpha: 0.4 },
     { kind: "field", color: "violet", path: [[0.55, 0.55], [0.7, 0.62], [0.62, 0.78], [0.42, 0.7]], size: 0.32, start: 7500, end: 14500, rate: 16, jitter: 0.08, alpha: 0.48 },
+    { kind: "field", color: "oxide", path: [[0.06, 0.36], [0.24, 0.46], [0.16, 0.64], [0.4, 0.72]], size: 0.34, start: 5200, end: 12800, rate: 18, jitter: 0.08, alpha: 0.5 },
     { kind: "scatter", color: "cream", x: 0.5, y: 0.28, rx: 0.28, ry: 0.2, size: 0.16, start: 7000, end: 15000, rate: 14, alpha: 0.35 },
+    { kind: "scatter", color: "enamel", x: 0.42, y: 0.42, rx: 0.2, ry: 0.18, size: 0.16, start: 8200, end: 16800, rate: 12, alpha: 0.38 },
     { kind: "stencil", color: "cream", clip: clipRook, bx: 0.48, by: 0.1, bw: 0.32, bh: 0.58, size: 0.22, start: 9000, end: 17500, rate: 36, jitter: 0.02, alpha: 0.85 },
     { kind: "scatter", color: "mag", x: 0.62, y: 0.32, rx: 0.18, ry: 0.28, size: 0.2, start: 9800, end: 16000, rate: 10, alpha: 0.28 },
     { kind: "stencil", color: "cyn", clip: clipBird, bx: 0.04, by: 0.42, bw: 0.32, bh: 0.32, size: 0.18, start: 12000, end: 18500, rate: 28, jitter: 0.02, alpha: 0.8 },
@@ -259,7 +265,8 @@
     { kind: "scatter", color: "mag", x: 0.3, y: 0.85, rx: 0.22, ry: 0.12, size: 0.18, start: 20000, end: 28000, rate: 12, alpha: 0.4 },
     { kind: "scatter", color: "cream", x: 0.88, y: 0.22, rx: 0.12, ry: 0.18, size: 0.12, start: 21000, end: 29000, rate: 10, alpha: 0.35 },
     { kind: "field", color: "rust", path: [[0.4, 0.5], [0.55, 0.62], [0.42, 0.78]], size: 0.22, start: 22000, end: 30000, rate: 12, jitter: 0.08, alpha: 0.35 },
-    { kind: "scatter", color: "cyn", x: 0.15, y: 0.2, rx: 0.16, ry: 0.16, size: 0.14, start: 24000, end: 32000, rate: 8, alpha: 0.3 }
+    { kind: "scatter", color: "cyn", x: 0.15, y: 0.2, rx: 0.16, ry: 0.16, size: 0.14, start: 24000, end: 32000, rate: 8, alpha: 0.3 },
+    { kind: "scatter", color: "enamel", x: 0.78, y: 0.78, rx: 0.16, ry: 0.14, size: 0.14, start: 19000, end: 28500, rate: 10, alpha: 0.32 }
   ];
 
   var drips = [
