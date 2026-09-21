@@ -242,50 +242,49 @@
   }
 
   var jobs = [
-    { kind: "field", color: "oxide", path: [[0.02, 0.2], [0.28, 0.15], [0.45, 0.35], [0.2, 0.5]], size: 0.48, start: 0, end: 9000, rate: 30, jitter: 0.07, alpha: 0.75 },
-    { kind: "field", color: "enamel", path: [[0.5, 0.55], [0.72, 0.48], [0.88, 0.7], [0.6, 0.85]], size: 0.44, start: 600, end: 11000, rate: 26, jitter: 0.07, alpha: 0.7 },
-    { kind: "field", color: "sky", path: [[0.15, 0.02], [0.5, 0.0], [0.85, 0.08], [0.7, 0.22]], size: 0.4, start: 0, end: 7500, rate: 22, jitter: 0.06, alpha: 0.6 },
-
-    { kind: "field", color: "fog", path: [[0.12, 0.18], [0.4, 0.12], [0.7, 0.22], [0.88, 0.18]], size: 0.42, start: 0, end: 4500, rate: 22, jitter: 0.08, alpha: 0.55 },
-    { kind: "field", color: "sky", path: [[0.08, 0.05], [0.38, 0.02], [0.68, 0.07], [0.94, 0.04]], size: 0.38, start: 200, end: 6800, rate: 20, jitter: 0.07, alpha: 0.52 },
-    { kind: "field", color: "mag", path: [[0.72, 0.06], [0.9, 0.22], [0.78, 0.48], [0.55, 0.62]], size: 0.5, start: 400, end: 6200, rate: 26, jitter: 0.07, alpha: 0.7 },
-    { kind: "field", color: "cyn", path: [[0.82, 0.08], [0.94, 0.35], [0.88, 0.7], [0.76, 0.92]], size: 0.38, start: 1600, end: 8000, rate: 24, jitter: 0.06, alpha: 0.65 },
-    { kind: "field", color: "rust", path: [[0.02, 0.55], [0.18, 0.7], [0.12, 0.9], [0.32, 0.96]], size: 0.4, start: 2800, end: 9000, rate: 22, jitter: 0.07, alpha: 0.6 },
-    { kind: "field", color: "acid", path: [[0.2, 0.78], [0.45, 0.88], [0.68, 0.82], [0.5, 0.96]], size: 0.36, start: 4200, end: 11000, rate: 24, jitter: 0.06, alpha: 0.62 },
-    { kind: "field", color: "mag", path: [[0.35, 0.08], [0.22, 0.28], [0.48, 0.4], [0.3, 0.52]], size: 0.28, start: 6000, end: 13000, rate: 18, jitter: 0.09, alpha: 0.4 },
-    { kind: "field", color: "violet", path: [[0.55, 0.55], [0.7, 0.62], [0.62, 0.78], [0.42, 0.7]], size: 0.32, start: 7500, end: 14500, rate: 16, jitter: 0.08, alpha: 0.48 },
-    { kind: "field", color: "oxide", path: [[0.06, 0.36], [0.24, 0.46], [0.16, 0.64], [0.4, 0.72]], size: 0.34, start: 5200, end: 12800, rate: 18, jitter: 0.08, alpha: 0.5 },
-    { kind: "scatter", color: "cream", x: 0.5, y: 0.28, rx: 0.28, ry: 0.2, size: 0.16, start: 7000, end: 15000, rate: 14, alpha: 0.35 },
-    { kind: "scatter", color: "enamel", x: 0.42, y: 0.42, rx: 0.2, ry: 0.18, size: 0.16, start: 8200, end: 16800, rate: 12, alpha: 0.38 },
-    { kind: "stencil", color: "cream", clip: clipRook, bx: 0.48, by: 0.1, bw: 0.32, bh: 0.58, size: 0.22, start: 9000, end: 17500, rate: 36, jitter: 0.02, alpha: 0.85 },
-    { kind: "scatter", color: "mag", x: 0.62, y: 0.32, rx: 0.18, ry: 0.28, size: 0.2, start: 9800, end: 16000, rate: 10, alpha: 0.28 },
-    { kind: "stencil", color: "cyn", clip: clipBird, bx: 0.04, by: 0.42, bw: 0.32, bh: 0.32, size: 0.18, start: 12000, end: 18500, rate: 28, jitter: 0.02, alpha: 0.8 },
-    { kind: "stencil", color: "acid", clip: function (c, W, H) { clipChevron(c, W, H, 0.06 * W, 0.72 * H, 0.2 * Math.min(W, H)); }, bx: 0.04, by: 0.68, bw: 0.2, bh: 0.2, size: 0.14, start: 13500, end: 19500, rate: 22, jitter: 0.015, alpha: 0.85 },
-    { kind: "stencil", color: "mag", clip: function (c, W, H) { clipChevron(c, W, H, 0.1 * W, 0.78 * H, 0.2 * Math.min(W, H)); }, bx: 0.08, by: 0.74, bw: 0.2, bh: 0.2, size: 0.14, start: 14500, end: 20500, rate: 22, jitter: 0.015, alpha: 0.8 },
-    { kind: "stencil", color: "cream", clip: clipTarget, bx: 0.76, by: 0.6, bw: 0.22, bh: 0.26, size: 0.16, start: 15000, end: 21500, rate: 24, jitter: 0.02, alpha: 0.7 },
-    { kind: "stencil", color: "rust", clip: function (c, W, H) { clipBar(c, W, H, 0.84, 0.035); }, bx: 0.02, by: 0.8, bw: 0.42, bh: 0.1, size: 0.18, start: 16000, end: 22000, rate: 18, jitter: 0.02, alpha: 0.7 },
-    { kind: "field", color: "cyn", path: [[0.55, 0.7], [0.7, 0.55], [0.92, 0.48]], size: 0.24, start: 17000, end: 25000, rate: 16, jitter: 0.08, alpha: 0.45 },
-    { kind: "field", color: "acid", path: [[0.78, 0.12], [0.6, 0.08], [0.48, 0.18]], size: 0.2, start: 18500, end: 26000, rate: 14, jitter: 0.07, alpha: 0.4 },
-    { kind: "scatter", color: "mag", x: 0.3, y: 0.85, rx: 0.22, ry: 0.12, size: 0.18, start: 20000, end: 28000, rate: 12, alpha: 0.4 },
-    { kind: "scatter", color: "cream", x: 0.88, y: 0.22, rx: 0.12, ry: 0.18, size: 0.12, start: 21000, end: 29000, rate: 10, alpha: 0.35 },
-    { kind: "field", color: "rust", path: [[0.4, 0.5], [0.55, 0.62], [0.42, 0.78]], size: 0.22, start: 22000, end: 30000, rate: 12, jitter: 0.08, alpha: 0.35 },
-    { kind: "scatter", color: "cyn", x: 0.15, y: 0.2, rx: 0.16, ry: 0.16, size: 0.14, start: 24000, end: 32000, rate: 8, alpha: 0.3 },
-    { kind: "scatter", color: "enamel", x: 0.78, y: 0.78, rx: 0.16, ry: 0.14, size: 0.14, start: 19000, end: 28500, rate: 10, alpha: 0.32 }
+    /* Edges first — keep mid wall more open */
+    { kind: "field", color: "oxide", path: [[0.02, 0.18], [0.16, 0.22], [0.1, 0.48], [0.04, 0.62]], size: 0.36, start: 0, end: 8500, rate: 22, jitter: 0.06, alpha: 0.62 },
+    { kind: "field", color: "sky", path: [[0.12, 0.02], [0.4, 0.0], [0.72, 0.04], [0.92, 0.08]], size: 0.34, start: 0, end: 7000, rate: 18, jitter: 0.05, alpha: 0.5 },
+    { kind: "field", color: "fog", path: [[0.1, 0.14], [0.35, 0.08], [0.62, 0.16], [0.88, 0.12]], size: 0.32, start: 200, end: 5000, rate: 14, jitter: 0.07, alpha: 0.35 },
+    { kind: "field", color: "mag", path: [[0.78, 0.04], [0.94, 0.18], [0.9, 0.42], [0.82, 0.58]], size: 0.38, start: 400, end: 8000, rate: 20, jitter: 0.06, alpha: 0.62 },
+    { kind: "field", color: "cyn", path: [[0.88, 0.1], [0.96, 0.38], [0.92, 0.68], [0.84, 0.9]], size: 0.32, start: 1600, end: 9500, rate: 18, jitter: 0.05, alpha: 0.55 },
+    { kind: "field", color: "enamel", path: [[0.62, 0.72], [0.78, 0.68], [0.92, 0.8], [0.74, 0.92]], size: 0.34, start: 800, end: 10000, rate: 18, jitter: 0.06, alpha: 0.58 },
+    { kind: "field", color: "rust", path: [[0.02, 0.58], [0.14, 0.72], [0.08, 0.9], [0.28, 0.96]], size: 0.34, start: 2800, end: 10000, rate: 16, jitter: 0.06, alpha: 0.55 },
+    { kind: "field", color: "acid", path: [[0.22, 0.82], [0.42, 0.9], [0.62, 0.84], [0.48, 0.96]], size: 0.3, start: 4200, end: 11500, rate: 16, jitter: 0.05, alpha: 0.52 },
+    /* Mid stays lighter — smaller, lower alpha, later */
+    { kind: "field", color: "oxide", path: [[0.12, 0.38], [0.22, 0.5], [0.18, 0.62]], size: 0.22, start: 5500, end: 12000, rate: 10, jitter: 0.07, alpha: 0.32 },
+    { kind: "field", color: "mag", path: [[0.32, 0.1], [0.22, 0.22], [0.34, 0.34]], size: 0.2, start: 6500, end: 12500, rate: 10, jitter: 0.08, alpha: 0.28 },
+    { kind: "field", color: "violet", path: [[0.58, 0.58], [0.68, 0.66], [0.6, 0.78]], size: 0.2, start: 8000, end: 14500, rate: 8, jitter: 0.07, alpha: 0.28 },
+    { kind: "scatter", color: "cream", x: 0.72, y: 0.22, rx: 0.14, ry: 0.12, size: 0.12, start: 7500, end: 15000, rate: 8, alpha: 0.28 },
+    { kind: "scatter", color: "enamel", x: 0.2, y: 0.28, rx: 0.1, ry: 0.12, size: 0.12, start: 8500, end: 16000, rate: 6, alpha: 0.25 },
+    /* Stencils keep presence but not mid pile */
+    { kind: "stencil", color: "cream", clip: clipRook, bx: 0.52, by: 0.12, bw: 0.28, bh: 0.52, size: 0.2, start: 9000, end: 17500, rate: 28, jitter: 0.02, alpha: 0.78 },
+    { kind: "scatter", color: "mag", x: 0.68, y: 0.28, rx: 0.12, ry: 0.16, size: 0.14, start: 10000, end: 16000, rate: 6, alpha: 0.22 },
+    { kind: "stencil", color: "cyn", clip: clipBird, bx: 0.04, by: 0.44, bw: 0.28, bh: 0.28, size: 0.16, start: 12000, end: 18500, rate: 24, jitter: 0.02, alpha: 0.75 },
+    { kind: "stencil", color: "acid", clip: function (c, W, H) { clipChevron(c, W, H, 0.06 * W, 0.72 * H, 0.2 * Math.min(W, H)); }, bx: 0.04, by: 0.68, bw: 0.2, bh: 0.2, size: 0.14, start: 13500, end: 19500, rate: 20, jitter: 0.015, alpha: 0.8 },
+    { kind: "stencil", color: "mag", clip: function (c, W, H) { clipChevron(c, W, H, 0.1 * W, 0.78 * H, 0.2 * Math.min(W, H)); }, bx: 0.08, by: 0.74, bw: 0.2, bh: 0.2, size: 0.14, start: 14500, end: 20500, rate: 20, jitter: 0.015, alpha: 0.75 },
+    { kind: "stencil", color: "cream", clip: clipTarget, bx: 0.78, by: 0.62, bw: 0.2, bh: 0.24, size: 0.14, start: 15000, end: 21500, rate: 20, jitter: 0.02, alpha: 0.65 },
+    { kind: "stencil", color: "rust", clip: function (c, W, H) { clipBar(c, W, H, 0.84, 0.035); }, bx: 0.02, by: 0.8, bw: 0.4, bh: 0.1, size: 0.16, start: 16000, end: 22000, rate: 14, jitter: 0.02, alpha: 0.65 },
+    { kind: "field", color: "cyn", path: [[0.7, 0.78], [0.84, 0.7], [0.94, 0.82]], size: 0.18, start: 17500, end: 25500, rate: 10, jitter: 0.07, alpha: 0.32 },
+    { kind: "field", color: "acid", path: [[0.82, 0.1], [0.7, 0.06], [0.6, 0.14]], size: 0.16, start: 19000, end: 26500, rate: 8, jitter: 0.06, alpha: 0.28 },
+    { kind: "scatter", color: "mag", x: 0.18, y: 0.88, rx: 0.14, ry: 0.08, size: 0.14, start: 20000, end: 28000, rate: 8, alpha: 0.3 },
+    { kind: "scatter", color: "cream", x: 0.9, y: 0.18, rx: 0.08, ry: 0.12, size: 0.1, start: 21000, end: 29000, rate: 6, alpha: 0.28 },
+    { kind: "scatter", color: "enamel", x: 0.86, y: 0.86, rx: 0.1, ry: 0.08, size: 0.12, start: 19500, end: 28500, rate: 6, alpha: 0.26 }
   ];
 
+  /* Drips: same color as spray; origin = terminus (end) of that spray field. */
   var drips = [
-    { x: 0.74, y: 0.26, color: "mag", start: 7000, end: 16500, len: 0.26, width: 0.014, lean: 0.012, wobble: 1.15 },
-    { x: 0.79, y: 0.34, color: "mag", start: 8400, end: 18000, len: 0.14, width: 0.007, lean: -0.006, wobble: 0.85 },
-    { x: 0.91, y: 0.4, color: "cyn", start: 9000, end: 19500, len: 0.32, width: 0.011, lean: 0.008, wobble: 1.4 },
-    { x: 0.87, y: 0.52, color: "enamel", start: 10500, end: 21500, len: 0.22, width: 0.009, lean: -0.01, wobble: 1.05 },
-    { x: 0.18, y: 0.42, color: "oxide", start: 7500, end: 18500, len: 0.34, width: 0.013, lean: 0.004, wobble: 1.25 },
-    { x: 0.14, y: 0.66, color: "rust", start: 10000, end: 20500, len: 0.2, width: 0.008, lean: -0.014, wobble: 0.95 },
-    { x: 0.48, y: 0.88, color: "acid", start: 12000, end: 22000, len: 0.1, width: 0.01, lean: 0.002, wobble: 0.7 },
-    { x: 0.62, y: 0.46, color: "cream", start: 15500, end: 25500, len: 0.28, width: 0.01, lean: 0.01, wobble: 1.1 },
-    { x: 0.56, y: 0.2, color: "cream", start: 16500, end: 26000, len: 0.12, width: 0.006, lean: -0.008, wobble: 0.9 },
-    { x: 0.7, y: 0.58, color: "oxide", start: 17000, end: 27500, len: 0.18, width: 0.008, lean: 0.006, wobble: 1.0 },
-    { x: 0.11, y: 0.58, color: "sky", start: 18500, end: 29000, len: 0.24, width: 0.009, lean: -0.005, wobble: 1.2 },
-    { x: 0.34, y: 0.3, color: "enamel", start: 11000, end: 23000, len: 0.2, width: 0.007, lean: 0.015, wobble: 1.35 }
+    { x: 0.82, y: 0.58, color: "mag", start: 5200, end: 14500, len: 0.26, width: 0.012, lean: 0.01, wobble: 1.1 },
+    { x: 0.84, y: 0.9, color: "cyn", start: 7000, end: 17000, len: 0.08, width: 0.009, lean: 0.004, wobble: 1.0 },
+    { x: 0.04, y: 0.62, color: "oxide", start: 4500, end: 14000, len: 0.24, width: 0.011, lean: -0.006, wobble: 1.15 },
+    { x: 0.74, y: 0.92, color: "enamel", start: 5500, end: 15000, len: 0.06, width: 0.01, lean: -0.008, wobble: 1.05 },
+    { x: 0.28, y: 0.96, color: "rust", start: 7000, end: 16500, len: 0.04, width: 0.009, lean: 0.006, wobble: 0.95 },
+    { x: 0.48, y: 0.96, color: "acid", start: 8000, end: 16500, len: 0.04, width: 0.01, lean: 0.002, wobble: 0.8 },
+    { x: 0.92, y: 0.08, color: "sky", start: 4000, end: 12000, len: 0.16, width: 0.008, lean: -0.01, wobble: 1.2 },
+    { x: 0.18, y: 0.62, color: "oxide", start: 9000, end: 18500, len: 0.2, width: 0.007, lean: 0.005, wobble: 1.0 },
+    { x: 0.34, y: 0.34, color: "mag", start: 10000, end: 18500, len: 0.18, width: 0.006, lean: -0.008, wobble: 0.9 },
+    { x: 0.6, y: 0.78, color: "violet", start: 11500, end: 20500, len: 0.14, width: 0.007, lean: 0.008, wobble: 1.05 },
+    { x: 0.94, y: 0.82, color: "cyn", start: 20000, end: 28500, len: 0.12, width: 0.007, lean: -0.006, wobble: 1.1 }
   ];
 
   function stampsAt(job, elapsed) {
