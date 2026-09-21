@@ -229,10 +229,10 @@ body::after {
   -webkit-text-fill-color: var(--cream);
   pointer-events: none;
   opacity: 0;
-  filter: blur(1.4px);
-  transform: scale(1.012);
+  filter: blur(0.9px);
+  transform: scale(1.02);
   animation: mist-in 0.7s var(--ease-out) forwards;
-  --mist-op: 0.28;
+  --mist-op: 0.2;
 }
 .ch:nth-child(1) .mist { animation-delay: 0.02s; }
 .ch:nth-child(2) .mist { animation-delay: 0.06s; }
@@ -245,12 +245,12 @@ body::after {
   position: relative;
   z-index: 1;
   display: block;
-  background-color: #e8dfcc;
+  background-color: #e4dcc8;
   background-image: url("spray-grain.png"), url("spray-grain.png");
-  background-size: 92px 92px, 148px 148px;
-  background-position: 0 0, 36px 18px;
+  background-size: 240px 240px, 380px 380px;
+  background-position: 0 0, 62px 40px;
   background-repeat: repeat;
-  background-blend-mode: multiply, overlay;
+  background-blend-mode: overlay, multiply;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -280,10 +280,11 @@ body::after {
   pointer-events: none;
   z-index: 2;
   opacity: 0;
+  mix-blend-mode: screen;
   animation: speck-in 1.05s var(--ease-out) 0.16s forwards;
 }
 @keyframes speck-in {
-  to { opacity: 0.88; }
+  to { opacity: 0.72; }
 }
 
 .co {
@@ -458,7 +459,7 @@ body::after {
   100% { opacity: 0; transform: scale(1.12); }
 }
 
-/* Mouse spray: canvas overlay, dots fade on their own clock */
+/* Mouse spray: canvas overlay, stamps fade on their own clock */
 #spray-layer {
   position: fixed;
   inset: 0;
@@ -466,6 +467,7 @@ body::after {
   height: 100%;
   pointer-events: none;
   z-index: 12;
+  mix-blend-mode: screen;
 }
 
 /* Inner pages */
@@ -1048,7 +1050,7 @@ textarea { min-height: 7rem; resize: vertical; }
   }
   .overspray {
     animation: none;
-    opacity: 1;
+    opacity: 0.72;
   }
   .burst, .spray-enter { display: none; }
   .btn:hover { animation: none; filter: none; }

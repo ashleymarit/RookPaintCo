@@ -33,37 +33,91 @@
     return mulberry32((job * 1000003 + i * 9176 + 17) >>> 0);
   }
 
+  function gauss(rng) {
+    var u = rng();
+    var v = rng();
+    if (u < 1e-9) u = 1e-9;
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(Math.PI * 2 * v);
+  }
+
   function makeStamp(r, g, b, seed) {
     var c = document.createElement("canvas");
-    var size = 72;
+    var size = 112;
     c.width = c.height = size;
     var x = c.getContext("2d");
     var rng = mulberry32(seed);
     var cx = size / 2;
     var cy = size / 2;
-    var i, ang, dist, rr, a, gaus;
-    for (i = 0; i < 560; i++) {
-      ang = rng() * Math.PI * 2;
-      gaus = (rng() + rng() + rng()) / 3;
-      dist = gaus * 34;
-      rr = 0.3 + rng() * 1.7;
-      a = 0.035 + rng() * 0.13;
-      if (dist > 22) a *= 0.42;
-      x.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
+    var i, dx, dy, dist, rr, a, ang, grad, colR, colG, colB;
+
+    function jitter() {
+      colR = r + ((rng() * 12) | 0) - 6;
+      colG = g + ((rng() * 10) | 0) - 5;
+      colB = b + ((rng() * 10) | 0) - 5;
+      if (colR < 0) colR = 0; if (colR > 255) colR = 255;
+      if (colG < 0) colG = 0; if (colG > 255) colG = 255;
+      if (colB < 0) colB = 0; if (colB > 255) colB = 255;
+    }
+
+    function speckle(px, py, rad, alpha) {
+      if (alpha < 0.012) return;
+      x.fillStyle = "rgba(" + colR + "," + colG + "," + colB + "," + alpha + ")";
       x.beginPath();
-      x.arc(cx + Math.cos(ang) * dist, cy + Math.sin(ang) * dist, rr, 0, Math.PI * 2);
+      x.arc(px, py, rad, 0, Math.PI * 2);
       x.fill();
     }
-    for (i = 0; i < 200; i++) {
-      ang = rng() * Math.PI * 2;
-      dist = rng() * rng() * 15;
-      rr = 0.55 + rng() * 2.1;
-      a = 0.07 + rng() * 0.16;
-      x.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
-      x.beginPath();
-      x.arc(cx + Math.cos(ang) * dist, cy + Math.sin(ang) * dist, rr, 0, Math.PI * 2);
-      x.fill();
+
+    grad = x.createRadialGradient(cx, cy, 1, cx, cy, 52);
+    grad.addColorStop(0, "rgba(" + r + "," + g + "," + b + ",0.16)");
+    grad.addColorStop(0.36, "rgba(" + r + "," + g + "," + b + ",0.07)");
+    grad.addColorStop(0.7, "rgba(" + r + "," + g + "," + b + ",0.022)");
+    grad.addColorStop(1, "rgba(" + r + "," + g + "," + b + ",0)");
+    x.fillStyle = grad;
+    x.fillRect(0, 0, size, size);
+
+    grad = x.createRadialGradient(cx, cy, 0, cx, cy, 14);
+    grad.addColorStop(0, "rgba(" + r + "," + g + "," + b + ",0.18)");
+    grad.addColorStop(0.6, "rgba(" + r + "," + g + "," + b + ",0.05)");
+    grad.addColorStop(1, "rgba(" + r + "," + g + "," + b + ",0)");
+    x.fillStyle = grad;
+    x.beginPath();
+    x.arc(cx, cy, 14, 0, Math.PI * 2);
+    x.fill();
+
+    for (i = 0; i < 1600; i++) {
+      dx = gauss(rng) * 16;
+      dy = gauss(rng) * 16;
+      dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist > 50) continue;
+      jitter();
+      a = (0.035 + rng() * 0.09) * Math.exp(-(dist * dist) / (2 * 18 * 18));
+      rr = 0.16 + rng() * 0.48;
+      speckle(cx + dx, cy + dy, rr, a);
     }
+
+    for (i = 0; i < 260; i++) {
+      dx = gauss(rng) * 7;
+      dy = gauss(rng) * 7;
+      dist = Math.sqrt(dx * dx + dy * dy);
+      jitter();
+      a = (0.07 + rng() * 0.14) * Math.exp(-(dist * dist) / (2 * 9 * 9));
+      rr = 0.28 + rng() * 0.7;
+      speckle(cx + dx, cy + dy, rr, a);
+    }
+
+    for (i = 0; i < 80; i++) {
+      ang = rng() * Math.PI * 2;
+      dist = 18 + rng() * rng() * 32;
+      if (dist > 52) continue;
+      jitter();
+      a = 0.045 + rng() * 0.11;
+      rr = 0.28 + rng() * rng() * 1.55;
+      dx = cx + Math.cos(ang) * dist;
+      dy = cy + Math.sin(ang) * dist;
+      speckle(dx, dy, rr, a);
+      if (rng() < 0.38) speckle(dx + (rng() - 0.5) * 2.8, dy + (rng() - 0.5) * 2.8, rr * 0.42, a * 0.5);
+    }
+
     return c;
   }
 
