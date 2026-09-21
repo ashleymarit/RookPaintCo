@@ -29,8 +29,6 @@
       return;
     }
 
-    looks.forEach(function (el) { el.classList.add("await-paint"); });
-
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -40,7 +38,14 @@
       });
     }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" });
 
-    looks.forEach(function (el) { io.observe(el); });
+    looks.forEach(function (el, i) {
+      if (i === 0) {
+        reveal(el);
+        return;
+      }
+      el.classList.add("await-paint");
+      io.observe(el);
+    });
   }
 
   function initSpray() {
